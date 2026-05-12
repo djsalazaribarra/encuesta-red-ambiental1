@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta de Prestaciones 2025–2026 · Red Ambiental</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark:   #1A3D06;
+    --green-mid:    #2D6A0F;
+    --green-base:   #4A8C1C;
+    --green-light:  #C8E6A0;
+    --green-pale:   #EEF7E3;
+    --amber-dark:   #6B3800;
+    --amber-base:   #C97B1A;
+    --amber-light:  #FAE3B8;
+    --blue-dark:    #0A3159;
+    --blue-base:    #1A6BC4;
+    --blue-light:   #D0E6FA;
+    --ink:          #111C09;
+    --ink-2:        #2E3D25;
+    --ink-3:        #5A6B50;
+    --surface:      #FAFDF6;
+    --border:       #D4E8BE;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--green-dark);
+    padding: 4rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 90% -10%, rgba(74,140,28,.35) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at -10% 110%, rgba(45,106,15,.4) 0%, transparent 55%);
+  }
+  .hero-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 1.25rem;
+    opacity: .85;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1.5px;
+    background: var(--green-light);
+    opacity: .6;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em {
+    color: var(--green-light);
+    font-style: normal;
+  }
+  .hero-body {
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(255,255,255,.72);
+    max-width: 520px;
+  }
+  .hero-dots {
+    display: flex;
+    gap: 6px;
+    margin-top: 2rem;
+  }
+  .hero-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green-light);
+    opacity: .4;
+  }
+  .hero-dot:first-child { opacity: 1; width: 20px; border-radius: 3px; }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 680px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 3rem 0 1.25rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── TIMELINE ── */
+  .tl-container { position: relative; }
+
+  .tl-year-row {
+    display: flex;
+    gap: 0;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .tl-year-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .tl-year-block.y2025 { flex: 3; }
+  .tl-year-block.y2026 { flex: 1; }
+
+  .tl-year-pill {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-bottom: .875rem;
+  }
+  .tl-year-pill.green {
+    background: var(--green-pale);
+    color: var(--green-mid);
+    border: 1px solid var(--green-light);
+  }
+
+  .tl-track {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .tl-line { flex: 1; height: 2px; background: var(--green-light); }
+  .tl-line.faded { background: var(--border); }
+  .tl-node {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--green-base);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px var(--green-pale), 0 0 0 4px var(--green-light);
+  }
+  .tl-node.accent {
+    background: var(--green-dark);
+    box-shadow: 0 0 0 3px var(--green-pale), 0 0 0 4px var(--green-mid);
+  }
+
+  .tl-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: #fff;
+    overflow: hidden;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .card:hover {
+    box-shadow: 0 6px 24px rgba(45,106,15,.12);
+    transform: translateY(-2px);
+  }
+  .card-top { padding: .875rem 1rem .625rem; }
+  .card-icon {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    margin-bottom: .625rem;
+  }
+  .ic-green { background: var(--green-pale); color: var(--green-dark); }
+  .ic-amber { background: var(--amber-light); color: var(--amber-dark); }
+  .ic-blue  { background: var(--blue-light);  color: var(--blue-dark);  }
+  .card-label { font-size: 10.5px; font-weight: 500; color: var(--ink-3); margin-bottom: .5rem; line-height: 1.35; }
+  .card-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .cv-green { color: var(--green-dark); }
+  .cv-amber { color: var(--amber-dark); }
+  .cv-blue  { color: var(--blue-base);  }
+  .card-old { font-size: 11px; color: var(--ink-3); text-decoration: line-through; margin-bottom: 5px; }
+  .card-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+  }
+  .badge-green { background: var(--green-light); color: var(--green-dark); }
+  .badge-amber { background: var(--amber-light); color: var(--amber-dark); }
+  .badge-blue  { background: var(--blue-light);  color: var(--blue-dark);  }
+  .card-foot {
+    padding: .5rem 1rem .625rem;
+    border-top: 1px solid #F0F7E8;
+    background: var(--green-pale);
+  }
+  .card-foot p { font-size: 11px; color: var(--ink-2); line-height: 1.5; }
+  .card-foot.amber { background: #FEF9F0; border-top-color: var(--amber-light); }
+  .card-foot.blue  { background: #F0F6FE; border-top-color: var(--blue-light); }
+  .card-foot.accent-border { border: 1px solid var(--green-base); }
+
+  /* ── IMPACT STRIP ── */
+  .impact-strip {
+    background: var(--green-dark);
+    border-radius: 14px;
+    padding: 1.5rem 1.5rem;
+    margin: 2.5rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .impact-item {}
+  .impact-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.25rem;
+    color: var(--green-light);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .impact-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,.65);
+    line-height: 1.5;
+  }
+  .impact-divider {
+    width: 1px;
+    background: rgba(255,255,255,.1);
+    display: none;
+  }
+
+  /* ── QUESTIONS ── */
+  .q-intro {
+    font-size: 14px;
+    color: var(--ink-3);
+    line-height: 1.75;
+    margin-bottom: 1.75rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--green-light);
+  }
+
+  .q-item {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background: #fff;
+  }
+  .q-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 1.1rem 1.25rem .875rem;
+  }
+  .q-circle {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--green-pale);
+    border: 1px solid var(--green-light);
+    color: var(--green-dark);
+    font-size: 11px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .q-content { flex: 1; }
+  .q-text { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.5; }
+  .q-hint { font-size: 12px; color: var(--ink-3); margin-top: 3px; }
+  .q-body {
+    padding: .75rem 1.25rem 1rem;
+    background: var(--green-pale);
+    border-top: 1px solid var(--border);
+  }
+  .q-type-tag {
+    font-size: 10.5px;
+    color: var(--ink-3);
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .opts { display: flex; flex-wrap: wrap; gap: 7px; }
+  .opt {
+    font-size: 12px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--ink-2);
+    background: #fff;
+    cursor: default;
+  }
+  .opt-hi {
+    border-color: var(--green-base);
+    background: var(--green-pale);
+    color: var(--green-dark);
+    font-weight: 500;
+  }
+  .opt-sub { display: flex; flex-direction: column; gap: 7px; margin-top: 2px; }
+  .opt-group-label { font-size: 10.5px; color: var(--ink-3); margin-bottom: 2px; }
+
+  .disclaimer {
+    font-size: 11px;
+    color: var(--ink-3);
+    font-style: italic;
+    margin-top: 10px;
+    padding: 7px 12px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  /* ── CTA ── */
+  .cta-block {
+    background: var(--green-dark);
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    margin-top: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-block::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(74,140,28,.3), transparent 70%);
+  }
+  .cta-block > * { position: relative; z-index: 1; }
+  .cta-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--green-light); opacity: .8;
+    margin-bottom: .75rem;
+  }
+  .cta-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem; font-weight: 400;
+    color: #fff; margin-bottom: .75rem; line-height: 1.3;
+  }
+  .cta-body {
+    font-size: 13px; color: rgba(255,255,255,.65);
+    line-height: 1.65; margin-bottom: 1.5rem; max-width: 400px; margin-left: auto; margin-right: auto;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background .15s, transform .15s;
+    letter-spacing: .01em;
+  }
+  .cta-btn:hover { background: #fff; transform: scale(1.03); }
+  .cta-note {
+    font-size: 11px;
+    color: rgba(255,255,255,.4);
+    margin-top: 1rem;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.25rem 2.25rem; }
+    .page { padding: 0 1.1rem 3rem; }
+    .tl-cards-grid { grid-template-columns: 1fr 1fr; }
+    .impact-strip { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1.25rem; }
+    .impact-num { font-size: 1.75rem; }
+  }
+  @media (max-width: 400px) {
+    .tl-cards-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Encuesta de Prestaciones · Red Ambiental</div>
+    <h1>Un año más, creciendo juntos.<br><em>Tu salario y tus beneficios</em><br>lo demuestran.</h1>
+    <p class="hero-body">Durante los últimos años, en Red Ambiental se han tomado decisiones concretas para mejorar tus prestaciones y beneficios.</p>
+    <div class="hero-dots">
+      <div class="hero-dot"></div>
+      <div class="hero-dot"></div>
+      <div class="hero-dot"></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ── TIMELINE ── -->
+
+  <div class="tl-container">
+    <!-- Year labels -->
+    <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:10px;margin-bottom:.625rem">
+      <div><span class="tl-year-pill green">2024</span></div>
+      <div><span class="tl-year-pill green">2025</span></div>
+      <div><span class="tl-year-pill green">2026</span></div>
+    </div>
+
+    <!-- Track -->
+    <div style="display:flex;align-items:center;margin-bottom:1rem;padding:0 5px">
+      <div class="tl-node accent"></div>
+      <div class="tl-line" style="flex:1"></div>
+      <div class="tl-node"></div>
+      <div class="tl-line" style="flex:1"></div>
+      <div class="tl-node"></div>
+      <div class="tl-line" style="flex:1"></div>
+      <div class="tl-node accent"></div>
+    </div>
+
+    <!-- Cards -->
+    <div class="tl-cards-grid">
+
+      <!-- 1. Fondo ahorro origen 2024 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon ic-amber">💰</div>
+          <div class="card-label">Fondo de ahorro · arranca</div>
+          <div class="card-value cv-amber">2.5%</div>
+          <span class="card-badge badge-amber">Inicio del beneficio</span>
+        </div>
+        <div class="card-foot amber">
+          <p>Se implementó el fondo de ahorro para todo el personal operativo.</p>
+        </div>
+      </div>
+
+      <!-- 2. Vales nuevos 2025 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon ic-green">🛒</div>
+          <div class="card-label">Vales de despensa · por primera vez</div>
+          <div class="card-value cv-green">$300</div>
+          <span class="card-badge badge-green">Prestación nueva</span>
+        </div>
+        <div class="card-foot">
+          <p>Despliegue de beneficio. Entrega de $300 pesos mensuales.</p>
+        </div>
+      </div>
+
+      <!-- 3. Fondo ahorro sube 2025 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon ic-amber">💰</div>
+          <div class="card-label">Fondo de ahorro · incremento</div>
+          <div class="card-value cv-amber">4%</div>
+          <div class="card-old">antes 2.5%</div>
+          <span class="card-badge badge-amber">+60% de aportación</span>
+        </div>
+        <div class="card-foot amber">
+          <p>Incremento de Fondo de Ahorro.</p>
+        </div>
+      </div>
+
+      <!-- 4. Vales 2026 -->
+      <div class="card" style="border-color: var(--green-base)">
+        <div class="card-top">
+          <div class="card-icon ic-green">🛒</div>
+          <div class="card-label">Vales de despensa · incremento</div>
+          <div class="card-value cv-green">$500</div>
+          <div class="card-old">antes $300</div>
+          <span class="card-badge badge-green">+$200 al mes</span>
+        </div>
+        <div class="card-foot accent-border">
+          <p>Incremento de Vales de Despensa.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── IMPACT NUMBERS ── -->
+  <div class="impact-strip">
+    <div class="impact-item">
+      <div class="impact-num">$2,400</div>
+      <div class="impact-desc">pesos más al año en vales de despensa solo por el incremento de 2026</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-num">+60%</div>
+      <div class="impact-desc">más aporta Red Ambiental a tu fondo de ahorro cada quincena sin que tú pongas nada extra</div>
+    </div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="cta-block">
+    <div class="cta-eyebrow">Tu opinión nos ayuda a seguir mejorando</div>
+    <div class="cta-title">Ahora cuéntanos cómo lo ves tú</div>
+    <p class="cta-body">Son 4 preguntas, menos de 3 minutos. Sin nombre, sin filtros — tus respuestas llegan directo a Recursos Humanos.</p>
+    <a href="https://forms.cloud.microsoft/r/5KrEkN9aSp" class="cta-btn">Contestar la encuesta →</a>
+    <div class="cta-note">Anónima · Sin registro de nombre · Menos de 3 minutos</div>
+  </div>
+
+</div>
+</body>
+</html>
